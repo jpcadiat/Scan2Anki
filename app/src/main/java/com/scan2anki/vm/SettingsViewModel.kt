@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -51,7 +52,7 @@ data class SettingsUiState(
     val noteTypeNames: List<String> = emptyList(),
     val isLoadingNoteTypeNames: Boolean = false,
     val showNoteTypePicker: Boolean = false,
-    val ageCheck: AgeCheck = AgeCheck.UNKNOWN,
+    val ageCheck: AgeCheck? = null,
     val showAgeDialog: Boolean = false,
 )
 
@@ -134,9 +135,17 @@ class SettingsViewModel @Inject constructor(
             Timber.w("SettingsViewModel: ignoring invalid birth year")
             return
         }
-        Timber.i("SettingsViewModel: age check result %s", result)
-        _uiState.update { it.copy(ageCheck = result, showAgeDialog = false) }
-        viewModelScope.launch { settings.setAgeCheck(result) }
+        viewModelScope.launch {
+            val stored = settings.ageCheck.first()
+            if (stored != AgeCheck.UNKNOWN) {
+                Timber.w("SettingsViewModel: age check already answered (%s), keeping it", stored)
+                _uiState.update { it.copy(ageCheck = stored, showAgeDialog = false) }
+                return@launch
+            }
+            Timber.i("SettingsViewModel: age check result %s", result)
+            _uiState.update { it.copy(ageCheck = result, showAgeDialog = false) }
+            settings.setAgeCheck(result)
+        }
     }
 
     fun testAnkiDroid() {

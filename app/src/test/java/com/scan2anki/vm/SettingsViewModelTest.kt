@@ -344,4 +344,19 @@ class SettingsViewModelTest {
         assertThat(vm.uiState.value.showAgeDialog).isFalse()
         assertThat(settings.ageCheck.first()).isEqualTo(AgeCheck.UNKNOWN)
     }
+
+    @Test
+    fun submitBirthYear_whenUnder13AlreadyStored_keepsUnder13() = runTest {
+        settings.setAgeCheck(AgeCheck.UNDER_13)
+        val vm = SettingsViewModel(settings, defaultFakeSender, defaultFakeCloudOcr, context)
+        vm.init()
+        vm.openAgeDialog()
+
+        vm.submitBirthYear(Year.now().value - 30)
+
+        mainDispatcherRule.awaitUntil { !vm.uiState.value.showAgeDialog }
+        mainDispatcherRule.awaitUntil { vm.uiState.value.ageCheck == AgeCheck.UNDER_13 }
+        assertThat(vm.uiState.value.ageCheck).isEqualTo(AgeCheck.UNDER_13)
+        assertThat(settings.ageCheck.first()).isEqualTo(AgeCheck.UNDER_13)
+    }
 }

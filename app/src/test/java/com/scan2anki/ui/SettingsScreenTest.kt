@@ -410,6 +410,9 @@ class SettingsScreenTest {
     fun ageUnknown_showsUseCloudVisionButtonInsteadOfKeyField() {
         val viewModel = settingsViewModel("test_settings_age_unknown")
         composeRule.setContent { SettingsScreen(onBack = {}, viewModel = viewModel) }
+        composeRule.waitUntil(timeoutMillis = 5000) {
+            composeRule.onAllNodesWithText("Use Google Cloud Vision…").fetchSemanticsNodes().isNotEmpty()
+        }
 
         composeRule.onNodeWithText("Use Google Cloud Vision…").performScrollTo().assertIsDisplayed()
         composeRule.onAllNodesWithText("Google Cloud Vision API key").assertCountEquals(0)
@@ -434,6 +437,9 @@ class SettingsScreenTest {
     fun ageDialog_continueDisabledForInvalidYear() {
         val viewModel = settingsViewModel("test_settings_age_invalid")
         composeRule.setContent { SettingsScreen(onBack = {}, viewModel = viewModel) }
+        composeRule.waitUntil(timeoutMillis = 5000) {
+            composeRule.onAllNodesWithText("Use Google Cloud Vision…").fetchSemanticsNodes().isNotEmpty()
+        }
         composeRule.onNodeWithText("Use Google Cloud Vision…").performScrollTo().performClick()
 
         composeRule.onNodeWithText("What year were you born?").assertIsDisplayed()
@@ -450,6 +456,9 @@ class SettingsScreenTest {
     fun ageDialog_adultYear_revealsApiKeyField() {
         val viewModel = settingsViewModel("test_settings_age_adult")
         composeRule.setContent { SettingsScreen(onBack = {}, viewModel = viewModel) }
+        composeRule.waitUntil(timeoutMillis = 5000) {
+            composeRule.onAllNodesWithText("Use Google Cloud Vision…").fetchSemanticsNodes().isNotEmpty()
+        }
         composeRule.onNodeWithText("Use Google Cloud Vision…").performScrollTo().performClick()
 
         composeRule.onNodeWithText("Year of birth").performTextInput((Year.now().value - 30).toString())
@@ -465,6 +474,9 @@ class SettingsScreenTest {
     fun ageDialog_cancel_keepsButton() {
         val viewModel = settingsViewModel("test_settings_age_cancel")
         composeRule.setContent { SettingsScreen(onBack = {}, viewModel = viewModel) }
+        composeRule.waitUntil(timeoutMillis = 5000) {
+            composeRule.onAllNodesWithText("Use Google Cloud Vision…").fetchSemanticsNodes().isNotEmpty()
+        }
         composeRule.onNodeWithText("Use Google Cloud Vision…").performScrollTo().performClick()
 
         composeRule.onNodeWithText("Cancel").performClick()
