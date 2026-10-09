@@ -1,6 +1,7 @@
 name: Release
 
-# Push a tag such as v1.2.3 to build a signed APK and publish it as a GitHub Release.
+# Push a tag such as v1.2.3 to build a signed APK and AAB, publish the APK as a GitHub
+# Release, and upload the AAB to Google Play when PLAY_SERVICE_ACCOUNT_JSON is set.
 on:
   push:
     tags: ['v*.*.*']
@@ -39,14 +40,14 @@ jobs:
           fi
           echo "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/release.jks"
 
-      - name: Run unit tests and build signed release APK
+      - name: Run unit tests and build signed release APK and AAB
         env:
           SCAN2ANKI_KEYSTORE_FILE: ${{ runner.temp }}/release.jks
           SCAN2ANKI_KEYSTORE_PASSWORD: ${{ secrets.SCAN2ANKI_KEYSTORE_PASSWORD }}
           SCAN2ANKI_KEY_ALIAS: ${{ secrets.SCAN2ANKI_KEY_ALIAS }}
           SCAN2ANKI_KEY_PASSWORD: ${{ secrets.SCAN2ANKI_KEY_PASSWORD }}
         run: >
-          ./gradlew testDebugUnitTest assembleRelease
+          ./gradlew testDebugUnitTest assembleRelease bundleRelease
           -PversionName=${{ steps.version.outputs.name }}
           -PversionCode=${{ steps.version.outputs.code }}
 
@@ -54,6 +55,13 @@ jobs:
         run: |
           apksigner="$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)/apksigner"
           "$apksigner" verify --print-certs app/build/outputs/apk/release/app-release.apk
+          jarsigner -verify app/build/outputs/bundle/release/app-release.aab
+
+      - name: Upload AAB as workflow artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: scan2anki-${{ steps.version.outputs.name }}-aab
+          path: app/build/outputs/bundle/release/app-release.aab
 
       - name: Publish GitHub Release
         env:
@@ -62,3 +70,28 @@ jobs:
           apk="scan2anki-${{ steps.version.outputs.name }}.apk"
           cp app/build/outputs/apk/release/app-release.apk "$apk"
           gh release create "$GITHUB_REF_NAME" "$apk" --title "Scan2Anki ${{ steps.version.outputs.name }}" --generate-notes
+
+      - name: Check for Play credentials
+        id: play
+        env:
+          PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+        run: |
+          if [ -n "$PLAY_SERVICE_ACCOUNT_JSON" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice::PLAY_SERVICE_ACCOUNT_JSON is not set; skipping Google Play upload"
+          fi
+
+      # Track and status are repository variables so a release can be promoted without
+      # editing the workflow. While the app is still a draft in the Play Console, Play only
+      # accepts PLAY_RELEASE_STATUS=draft.
+      - name: Upload AAB to Google Play
+        if: steps.play.outputs.enabled == 'true'
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: com.scan2anki
+          releaseFiles: app/build/outputs/bundle/release/app-release.aab
+          releaseName: ${{ steps.version.outputs.name }}
+          track: ${{ vars.PLAY_TRACK || 'internal' }}
+          status: ${{ vars.PLAY_RELEASE_STATUS || 'completed' }}
