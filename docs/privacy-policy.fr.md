@@ -42,14 +42,14 @@ Voir la [déclaration de Google sur les données de ML Kit](https://developers.g
 
 **Google Cloud Vision (facultatif).** La reconnaissance dans le cloud n'est
 disponible que pour les utilisateurs qui confirment avoir 13 ans ou plus (voir
-*Enfants* ci-dessous). Si vous saisissez votre propre clé d'API
-Google Cloud Vision et choisissez la reconnaissance dans le cloud, la photo de
-la page est envoyée en HTTPS directement depuis votre téléphone à l'API Cloud
-Vision de Google, facturée sur votre propre projet Google Cloud. Ce traitement
-est régi par les conditions et la politique de confidentialité de Google Cloud,
-et non par le développeur de Scan2Anki. Votre clé d'API est stockée uniquement
-dans le stockage privé de l'application sur votre appareil et est exclue des
-sauvegardes Android.
+*Enfants* ci-dessous). Si vous saisissez votre propre clé d'API Google Cloud
+Vision et choisissez la reconnaissance dans le cloud, la photo de la page est
+envoyée en HTTPS directement depuis votre téléphone à l'API Cloud Vision de
+Google, facturée sur votre propre projet Google Cloud. Ce traitement est régi
+par les conditions et la politique de confidentialité de Google Cloud, et non
+par le développeur de Scan2Anki. Votre clé d'API est stockée uniquement dans le
+stockage privé de l'application sur votre appareil et est exclue des sauvegardes
+Android.
 
 ## AnkiDroid
 
@@ -60,8 +60,9 @@ Cet échange se fait entièrement sur votre téléphone.
 ## Réglages
 
 Vos réglages (paquet par défaut, type de note, règles de nettoyage, écriture
-OCR, clé d'API et résultat de la question sur l'âge) sont stockés uniquement sur votre appareil. Ils sont supprimés
-si vous désinstallez l'application ou effacez ses données.
+OCR, clé d'API et résultat de la question sur l'âge) sont stockés uniquement sur
+votre appareil. Ils sont supprimés si vous désinstallez l'application ou effacez
+ses données.
 
 ## Enfants
 
@@ -70,7 +71,9 @@ Scan2Anki peut être utilisé par des enfants, y compris de moins de 13 ans.
 Lorsqu'une personne essaie d'activer Google Cloud Vision, l'application
 demande son année de naissance. Elle ne conserve que le résultat (« 13 ans
 ou plus » ou « moins de 13 ans »), sur l'appareil ; l'année elle-même n'est
-pas enregistrée. Les utilisateurs de moins de 13 ans ne peuvent pas activer
+pas enregistrée. Ce résultat est conservé jusqu'à ce que les données de
+l'application soient effacées ou que l'application soit désinstallée. Les
+utilisateurs de moins de 13 ans ne peuvent pas activer
 Cloud Vision : leurs photos ne quittent donc jamais le téléphone. Les seules
 données envoyées hors de l'appareil les concernant sont les données de
 diagnostic de ML Kit décrites plus haut.

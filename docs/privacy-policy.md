@@ -36,13 +36,13 @@ MAC address), and nothing that identifies you.
 See [Google's ML Kit data disclosure](https://developers.google.com/ml-kit/android-data-disclosure).
 
 **Google Cloud Vision (optional).** Cloud text recognition is only available to
-users who confirm they are 13 or over (see *Children* below). If you enter your own Google Cloud Vision API
-key and choose cloud text recognition, the photo of the page is sent over HTTPS
-directly from your phone to Google's Cloud Vision API, billed to your own Google
-Cloud project. That processing is governed by Google's terms and privacy policy
-for Google Cloud, not by the developer of Scan2Anki. Your API key is stored only
-in the app's private storage on your device and is excluded from Android
-backups.
+users who confirm they are 13 or over (see *Children* below). If you enter your
+own Google Cloud Vision API key and choose cloud text recognition, the photo of
+the page is sent over HTTPS directly from your phone to Google's Cloud Vision
+API, billed to your own Google Cloud project. That processing is governed by
+Google's terms and privacy policy for Google Cloud, not by the developer of
+Scan2Anki. Your API key is stored only in the app's private storage on your
+device and is excluded from Android backups.
 
 ## AnkiDroid
 
@@ -52,9 +52,9 @@ your phone.
 
 ## Settings
 
-Your settings (default deck, note type, clean-up rules, OCR script, API key, and the result of the age question)
-are stored only on your device. Uninstalling the app or clearing its data
-deletes them.
+Your settings (default deck, note type, clean-up rules, OCR script, API key, and
+the result of the age question) are stored only on your device. Uninstalling the
+app or clearing its data deletes them.
 
 ## Children
 
@@ -62,7 +62,8 @@ Scan2Anki can be used by children, including children under 13.
 
 When someone tries to turn on Google Cloud Vision, the app asks for their
 year of birth. It keeps only the result ("13 or over" or "under 13"), on
-the device; the year itself is not stored. Users under 13 cannot turn on
+the device; the year itself is not stored. The result stays until the app's
+data is cleared or the app is uninstalled. Users under 13 cannot turn on
 Cloud Vision, so their photos never leave the phone. The only data sent
 off the device for them is ML Kit's diagnostic data described above.
 
