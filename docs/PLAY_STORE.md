@@ -64,7 +64,8 @@ Play Console → **Policy and programs → App content**:
   reviewer notes, say that sending cards requires AnkiDroid
   (`com.ichi2.anki`, free on Play), that Cloud Vision is optional and needs the
   user's own API key, and that it sits behind a year-of-birth question: enter a
-  year for someone 13 or over to test it.
+  birth year at least 14 years ago (e.g. 1990) to test it. An under-13 answer
+  is permanent; clear the app's data to answer again.
 - **Content rating:** answer the questionnaire (category *Reference, News, or
   Educational*; no violence, user interaction, sharing location or purchases).
   The expected result is the lowest rating everywhere (Everyone / PEGI 3 / USK 0).
