@@ -29,6 +29,7 @@ class AppViewModelTest {
         val context = ApplicationProvider.getApplicationContext<Context>()
         db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java)
             .allowMainThreadQueries()
+            .setQueryCoroutineContext(mainDispatcherRule.testDispatcher)
             .build()
         repo = SessionRepository(db.importSessionDao(), db.pageDao(), db.wordPairDao())
     }
