@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!--
+        Vendored third-party AnkiDroid API client (LGPL-3.0, from ankidroid/Anki-Android).
+        Kept verbatim upstream; lint findings there are not actionable for this app.
+    -->
+    <issue id="all">
+        <ignore path="src/main/java/com/ichi2/anki" />
+    </issue>
+</lint>

@@ -1,0 +1,145 @@
+<resources>
+    <string name="app_name">Scan2Anki</string>
+
+    <!-- Shared -->
+    <string name="cd_back">Retour</string>
+    <string name="cd_more_options">Plus d\'options</string>
+    <string name="cd_done">Terminé</string>
+    <string name="action_undo">Annuler</string>
+    <string name="action_cancel">Annuler</string>
+    <string name="label_front">Recto</string>
+    <string name="label_back">Verso</string>
+    <string name="label_both">Les deux</string>
+    <string name="page_number">Page %1$d</string>
+    <string name="delete_page">Supprimer la page %1$d</string>
+    <string name="processing">Traitement…</string>
+    <string name="error_ocr_failed">Échec de l\'OCR</string>
+    <string name="error_cannot_read_image">Impossible de lire l\'image</string>
+    <string name="error_cannot_decode_image">Impossible de décoder l\'image</string>
+    <string name="error_page_not_found">Page introuvable</string>
+    <string name="error_camera_unavailable">Caméra indisponible</string>
+
+    <!-- Capture screen -->
+    <string name="capture_title">Ajouter des pages</string>
+    <string name="cd_settings">Paramètres</string>
+    <string name="cd_flashlight_on">Activer la lampe torche</string>
+    <string name="cd_flashlight_off">Désactiver la lampe torche</string>
+    <string name="error_camera_permission_required">Autorisation de la caméra requise</string>
+    <string name="action_capture">Capturer</string>
+    <string name="action_gallery">Galerie</string>
+    <string name="action_done_review_pairs">Terminé — vérifier les paires</string>
+    <string name="error_capture_failed">Échec de la capture</string>
+
+    <!-- Review screen -->
+    <string name="error_anki_permission_denied">Accès à AnkiDroid refusé. Autorisez la permission pour exporter les cartes.</string>
+    <string name="msg_cards_sent">Cartes envoyées à AnkiDroid</string>
+    <string name="review_title">Vérification</string>
+    <plurals name="word_count">
+        <item quantity="one">%1$d mot</item>
+        <item quantity="other">%1$d mots</item>
+    </plurals>
+    <string name="cd_clean_up">Nettoyer</string>
+    <string name="menu_swap_columns">Inverser les colonnes</string>
+    <string name="menu_add_row">Ajouter une ligne</string>
+    <string name="menu_start_new_scan">Démarrer une nouvelle numérisation</string>
+    <string name="action_send_to_ankidroid">Envoyer vers AnkiDroid</string>
+    <string name="deck_label_with_name">Paquet : %1$s</string>
+    <string name="note_type_label_with_name">Type : %1$s</string>
+    <string name="deck_name_not_set">non défini</string>
+    <string name="menu_view_detected_lines">Voir les lignes détectées</string>
+    <string name="menu_rerun_ocr_on_device">Relancer l\'OCR (sur l\'appareil)</string>
+    <string name="menu_rerun_ocr_cloud">Relancer l\'OCR (Cloud)</string>
+    <string name="msg_row_deleted">Ligne supprimée</string>
+    <string name="cd_delete">Supprimer</string>
+    <string name="dialog_cleanup_title">Nettoyer le texte</string>
+    <string name="rule_trim_junk">Supprimer les caractères parasites</string>
+    <string name="label_extra_chars_to_strip">Caractères supplémentaires à supprimer</string>
+    <string name="rule_strip_page_number">Supprimer le numéro de page final</string>
+    <string name="rule_cut_after_separator">Couper après le séparateur</string>
+    <string name="label_separator">Séparateur</string>
+    <string name="rule_fix_casing">Corriger la casse</string>
+    <string name="casing_sentence_case">Casse de phrase</string>
+    <string name="casing_lowercase">minuscules</string>
+    <string name="review_changes_count">Vérifier les modifications (%1$d)</string>
+    <string name="no_changes_to_apply">Aucune modification à appliquer.</string>
+    <string name="diff_front_template">Recto : %1$s → %2$s</string>
+    <string name="diff_back_template">Verso : %1$s → %2$s</string>
+    <string name="action_hide_changes">Masquer les modifications</string>
+    <string name="action_preview">Aperçu</string>
+    <string name="action_apply_count">Appliquer (%1$d)</string>
+    <string name="undo_page_reset">Page réinitialisée</string>
+    <string name="undo_split_added">Séparation ajoutée</string>
+    <string name="undo_split_deleted">Séparation supprimée</string>
+    <string name="undo_zone_deleted">Zone supprimée</string>
+    <string name="undo_line_deleted">Ligne supprimée</string>
+    <string name="undo_zone_added">Zone ajoutée</string>
+    <string name="error_enter_deck_name">Saisissez un nom de paquet</string>
+    <string name="error_no_valid_pairs">Aucune paire de mots valide à exporter</string>
+    <string name="msg_cards_partial_added">%1$d cartes ajoutées sur %2$d ; les autres ont été ignorées car elles sont déjà dans AnkiDroid.</string>
+
+    <!-- Settings screen -->
+    <string name="settings_title">Paramètres</string>
+    <string name="section_text_recognition">Reconnaissance de texte</string>
+    <string name="ocr_script_latin">Latin</string>
+    <string name="ocr_script_chinese">Chinois</string>
+    <string name="label_vision_api_key">Clé API Google Cloud Vision</string>
+    <string name="cd_hide_api_key">Masquer la clé API</string>
+    <string name="cd_show_api_key">Afficher la clé API</string>
+    <string name="supporting_ocr_explainer">L\'OCR sur l\'appareil est gratuit et fonctionne hors ligne. L\'OCR Cloud envoie vos images à Google ; il nécessite une clé API.</string>
+    <string name="action_check_api_key">Tester la clé API</string>
+    <string name="msg_api_key_valid">La clé API est valide.</string>
+    <string name="error_no_api_key_configured">Aucune clé API configurée.</string>
+    <string name="cd_api_key_valid">Clé API valide</string>
+    <string name="cd_api_key_invalid">Clé API invalide</string>
+    <string name="section_ankidroid">AnkiDroid</string>
+    <string name="label_default_deck_name">Nom du paquet par défaut</string>
+    <string name="default_note_type_name">Généralités</string>
+    <string name="label_default_note_type">Type de note par défaut</string>
+    <string name="action_checking">Vérification…</string>
+    <string name="action_check_connection">Vérifier la connexion</string>
+    <string name="cd_connected">Connecté</string>
+    <string name="cd_not_connected">Non connecté</string>
+    <string name="error_test_failed">Échec du test : %1$s</string>
+    <string name="error_unknown">Erreur inconnue</string>
+
+    <!-- Zone editor screen -->
+    <string name="zone_editor_title">Ajuster les colonnes</string>
+    <string name="menu_reset_page">Réinitialiser la page</string>
+    <string name="loading">Chargement…</string>
+    <string name="action_retry">Réessayer</string>
+    <string name="cd_previous_page">Page précédente</string>
+    <string name="cd_next_page">Page suivante</string>
+    <string name="page_of_count">Page %1$d sur %2$d</string>
+    <string name="hint_drag_to_ignore">Faites glisser sur le texte à ignorer</string>
+    <string name="action_delete_split">Supprimer la séparation</string>
+    <string name="action_delete_zone">Supprimer la zone</string>
+    <string name="action_delete_line">Supprimer la ligne</string>
+    <string name="action_add_split">Ajouter une séparation</string>
+    <string name="action_add_zone">Ajouter une zone d’exclusion</string>
+    <string name="legend_unpaired">Non apparié</string>
+    <string name="legend_ignored">Ignoré</string>
+    <string name="legend_split">Séparation</string>
+    <string name="label_unpaired_lowercase">non apparié</string>
+
+    <!-- Zoomable box -->
+    <string name="cd_reset_zoom">Réinitialiser le zoom</string>
+
+    <!-- AnkiDroid integration -->
+    <string name="anki_not_installed">AnkiDroid n\'est pas installé. Installez-le depuis Google Play ou F-Droid.</string>
+    <string name="anki_access_not_granted_diagnose">AnkiDroid est installé, mais Scan2Anki n\'est pas encore autorisé à y accéder. Appuyez sur Envoyer vers AnkiDroid et autorisez l\'accès lorsque demandé.</string>
+    <string name="anki_connection_ok">La connexion à AnkiDroid fonctionne.</string>
+    <string name="anki_no_cards_to_export">Aucune carte à exporter</string>
+    <string name="anki_no_usable_note_type">AnkiDroid n\'a aucun type de note utilisable</string>
+    <string name="anki_deck_not_found">Le paquet « %1$s » n\'existe pas dans AnkiDroid. Créez-le d\'abord là-bas.</string>
+    <string name="anki_send_failed">Échec de la communication avec AnkiDroid</string>
+    <string name="anki_access_denied">Scan2Anki n\'est pas encore autorisé à accéder à AnkiDroid. Appuyez sur Envoyer vers AnkiDroid et autorisez l\'accès lorsque demandé.</string>
+
+    <!-- Deck picker -->
+    <string name="cd_browse_decks">Parcourir les paquets</string>
+    <string name="title_select_deck">Choisir un paquet</string>
+    <string name="deck_picker_empty">Aucun paquet trouvé</string>
+
+    <string name="cd_browse_note_types">Parcourir les types de note</string>
+    <string name="title_select_note_type">Choisir un type de note</string>
+    <string name="note_type_picker_empty">Aucun type de note trouvé</string>
+</resources>

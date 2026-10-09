@@ -1,0 +1,145 @@
+<resources>
+    <string name="app_name">Scan2Anki</string>
+
+    <!-- Shared -->
+    <string name="cd_back">Back</string>
+    <string name="cd_more_options">More options</string>
+    <string name="cd_done">Done</string>
+    <string name="action_undo">Undo</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="label_front">Front</string>
+    <string name="label_back">Back</string>
+    <string name="label_both">Both</string>
+    <string name="page_number">Page %1$d</string>
+    <string name="delete_page">Delete page %1$d</string>
+    <string name="processing">Processing…</string>
+    <string name="error_ocr_failed">OCR failed</string>
+    <string name="error_cannot_read_image">Cannot read image</string>
+    <string name="error_cannot_decode_image">Cannot decode image</string>
+    <string name="error_page_not_found">Page not found</string>
+    <string name="error_camera_unavailable">Camera unavailable</string>
+
+    <!-- Capture screen -->
+    <string name="capture_title">Add pages</string>
+    <string name="cd_settings">Settings</string>
+    <string name="cd_flashlight_on">Turn on flashlight</string>
+    <string name="cd_flashlight_off">Turn off flashlight</string>
+    <string name="error_camera_permission_required">Camera permission required</string>
+    <string name="action_capture">Capture</string>
+    <string name="action_gallery">Gallery</string>
+    <string name="action_done_review_pairs">Done — review pairs</string>
+    <string name="error_capture_failed">Capture failed</string>
+
+    <!-- Review screen -->
+    <string name="error_anki_permission_denied">AnkiDroid access denied. Allow the permission to export cards.</string>
+    <string name="msg_cards_sent">Cards sent to AnkiDroid</string>
+    <string name="review_title">Review</string>
+    <plurals name="word_count">
+        <item quantity="one">%1$d word</item>
+        <item quantity="other">%1$d words</item>
+    </plurals>
+    <string name="cd_clean_up">Clean up</string>
+    <string name="menu_swap_columns">Swap columns</string>
+    <string name="menu_add_row">Add row</string>
+    <string name="menu_start_new_scan">Start new scan</string>
+    <string name="action_send_to_ankidroid">Send to AnkiDroid</string>
+    <string name="deck_label_with_name">Deck: %1$s</string>
+    <string name="note_type_label_with_name">Type: %1$s</string>
+    <string name="deck_name_not_set">not set</string>
+    <string name="menu_view_detected_lines">View detected lines</string>
+    <string name="menu_rerun_ocr_on_device">Re-run OCR (On-device)</string>
+    <string name="menu_rerun_ocr_cloud">Re-run OCR (Cloud)</string>
+    <string name="msg_row_deleted">Row deleted</string>
+    <string name="cd_delete">Delete</string>
+    <string name="dialog_cleanup_title">Clean up text</string>
+    <string name="rule_trim_junk">Trim junk characters</string>
+    <string name="label_extra_chars_to_strip">Extra characters to strip</string>
+    <string name="rule_strip_page_number">Strip trailing page number</string>
+    <string name="rule_cut_after_separator">Cut after separator</string>
+    <string name="label_separator">Separator</string>
+    <string name="rule_fix_casing">Fix casing</string>
+    <string name="casing_sentence_case">Sentence case</string>
+    <string name="casing_lowercase">lowercase</string>
+    <string name="review_changes_count">Review changes (%1$d)</string>
+    <string name="no_changes_to_apply">No changes to apply.</string>
+    <string name="diff_front_template">Front: %1$s → %2$s</string>
+    <string name="diff_back_template">Back: %1$s → %2$s</string>
+    <string name="action_hide_changes">Hide changes</string>
+    <string name="action_preview">Preview</string>
+    <string name="action_apply_count">Apply (%1$d)</string>
+    <string name="undo_page_reset">Page reset</string>
+    <string name="undo_split_added">Split added</string>
+    <string name="undo_split_deleted">Split deleted</string>
+    <string name="undo_zone_deleted">Zone deleted</string>
+    <string name="undo_line_deleted">Line deleted</string>
+    <string name="undo_zone_added">Zone added</string>
+    <string name="error_enter_deck_name">Enter a deck name</string>
+    <string name="error_no_valid_pairs">No valid word pairs to export</string>
+    <string name="msg_cards_partial_added">Added %1$d of %2$d cards; the rest were skipped because they are already in AnkiDroid.</string>
+
+    <!-- Settings screen -->
+    <string name="settings_title">Settings</string>
+    <string name="section_text_recognition">Text recognition</string>
+    <string name="ocr_script_latin">Latin</string>
+    <string name="ocr_script_chinese">Chinese</string>
+    <string name="label_vision_api_key">Google Cloud Vision API key</string>
+    <string name="cd_hide_api_key">Hide API key</string>
+    <string name="cd_show_api_key">Show API key</string>
+    <string name="supporting_ocr_explainer">On-device OCR is free and offline. Cloud OCR sends your images to Google; it needs an API key.</string>
+    <string name="action_check_api_key">Test API key</string>
+    <string name="msg_api_key_valid">API key is valid.</string>
+    <string name="error_no_api_key_configured">No API key configured.</string>
+    <string name="cd_api_key_valid">API key valid</string>
+    <string name="cd_api_key_invalid">API key invalid</string>
+    <string name="section_ankidroid">AnkiDroid</string>
+    <string name="label_default_deck_name">Default deck name</string>
+    <string name="default_note_type_name">General</string>
+    <string name="label_default_note_type">Default note type</string>
+    <string name="action_checking">Checking…</string>
+    <string name="action_check_connection">Check connection</string>
+    <string name="cd_connected">Connected</string>
+    <string name="cd_not_connected">Not connected</string>
+    <string name="error_test_failed">Test failed: %1$s</string>
+    <string name="error_unknown">Unknown error</string>
+
+    <!-- Zone editor screen -->
+    <string name="zone_editor_title">Adjust columns</string>
+    <string name="menu_reset_page">Reset page</string>
+    <string name="loading">Loading…</string>
+    <string name="action_retry">Retry</string>
+    <string name="cd_previous_page">Previous page</string>
+    <string name="cd_next_page">Next page</string>
+    <string name="page_of_count">Page %1$d of %2$d</string>
+    <string name="hint_drag_to_ignore">Drag over the text to ignore</string>
+    <string name="action_delete_split">Delete split</string>
+    <string name="action_delete_zone">Delete zone</string>
+    <string name="action_delete_line">Delete line</string>
+    <string name="action_add_split">Add split</string>
+    <string name="action_add_zone">Add exclusion zone</string>
+    <string name="legend_unpaired">Unpaired</string>
+    <string name="legend_ignored">Ignored</string>
+    <string name="legend_split">Split</string>
+    <string name="label_unpaired_lowercase">unpaired</string>
+
+    <!-- Zoomable box -->
+    <string name="cd_reset_zoom">Reset zoom</string>
+
+    <!-- AnkiDroid integration -->
+    <string name="anki_not_installed">AnkiDroid isn\'t installed. Install it from Google Play or F-Droid.</string>
+    <string name="anki_access_not_granted_diagnose">AnkiDroid is installed, but Scan2Anki isn\'t allowed to access it yet. Tap Send to AnkiDroid and allow the access when prompted.</string>
+    <string name="anki_connection_ok">Connection to AnkiDroid works.</string>
+    <string name="anki_no_cards_to_export">No cards to export</string>
+    <string name="anki_no_usable_note_type">AnkiDroid has no usable note type</string>
+    <string name="anki_deck_not_found">Deck \"%1$s\" doesn\'t exist in AnkiDroid. Create it there first.</string>
+    <string name="anki_send_failed">Failed to talk to AnkiDroid</string>
+    <string name="anki_access_denied">Scan2Anki isn\'t allowed to access AnkiDroid yet. Tap Send to AnkiDroid and allow the access when prompted.</string>
+
+    <!-- Deck picker -->
+    <string name="cd_browse_decks">Browse decks</string>
+    <string name="title_select_deck">Select a deck</string>
+    <string name="deck_picker_empty">No decks found</string>
+
+    <string name="cd_browse_note_types">Browse note types</string>
+    <string name="title_select_note_type">Select a note type</string>
+    <string name="note_type_picker_empty">No note types found</string>
+</resources>

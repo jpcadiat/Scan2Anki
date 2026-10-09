@@ -1,0 +1,29 @@
+# Gradle / Kotlin build output
+.gradle/
+.kotlin/
+build/
+/captures
+.externalNativeBuild
+.cxx
+
+# Android build artifacts
+*.apk
+*.aab
+*.ap_
+*.dex
+output-metadata.json
+
+# Local configuration (SDK path, secrets)
+local.properties
+*.jks
+*.keystore
+
+# IDE
+*.iml
+/.idea
+.DS_Store
+
+# AI assistant / planning workspaces
+.claude/
+.superpowers/
+docs/superpowers/
