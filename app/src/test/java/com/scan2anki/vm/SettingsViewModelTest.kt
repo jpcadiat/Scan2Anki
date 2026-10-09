@@ -8,6 +8,7 @@ import com.scan2anki.ankidroid.AnkiDroidSendResult
 import com.scan2anki.ankidroid.AnkiDroidSender
 import com.scan2anki.ankidroid.AnkiNote
 import com.scan2anki.ocr.CloudVisionOcrEngine
+import com.scan2anki.settings.AgeCheck
 import com.scan2anki.settings.AppSettings
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.first
@@ -24,6 +25,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import java.io.File
+import java.time.Year
 
 @RunWith(RobolectricTestRunner::class)
 class SettingsViewModelTest {
@@ -279,5 +281,67 @@ class SettingsViewModelTest {
         vm.dismissNoteTypePicker()
 
         assertThat(vm.uiState.value.showNoteTypePicker).isFalse()
+    }
+
+    @Test
+    fun init_loadsPersistedAgeCheck() = runTest {
+        settings.setAgeCheck(AgeCheck.UNDER_13)
+        val vm = SettingsViewModel(settings, defaultFakeSender, defaultFakeCloudOcr, context)
+        vm.init()
+        mainDispatcherRule.awaitUntil { vm.uiState.value.ageCheck == AgeCheck.UNDER_13 }
+        assertThat(vm.uiState.value.ageCheck).isEqualTo(AgeCheck.UNDER_13)
+    }
+
+    @Test
+    fun submitBirthYear_adult_storesAdultOrTeenAndClosesDialog() = runTest {
+        val vm = SettingsViewModel(settings, defaultFakeSender, defaultFakeCloudOcr, context)
+        vm.init()
+        vm.openAgeDialog()
+        assertThat(vm.uiState.value.showAgeDialog).isTrue()
+
+        vm.submitBirthYear(Year.now().value - 30)
+
+        mainDispatcherRule.awaitUntil { vm.uiState.value.ageCheck == AgeCheck.ADULT_OR_TEEN }
+        assertThat(vm.uiState.value.showAgeDialog).isFalse()
+        assertThat(settings.ageCheck.first()).isEqualTo(AgeCheck.ADULT_OR_TEEN)
+    }
+
+    @Test
+    fun submitBirthYear_child_storesUnder13() = runTest {
+        val vm = SettingsViewModel(settings, defaultFakeSender, defaultFakeCloudOcr, context)
+        vm.init()
+        vm.openAgeDialog()
+
+        vm.submitBirthYear(Year.now().value - 12)
+
+        mainDispatcherRule.awaitUntil { vm.uiState.value.ageCheck == AgeCheck.UNDER_13 }
+        assertThat(vm.uiState.value.showAgeDialog).isFalse()
+        assertThat(settings.ageCheck.first()).isEqualTo(AgeCheck.UNDER_13)
+    }
+
+    @Test
+    fun submitBirthYear_invalidYear_isIgnored() = runTest {
+        val vm = SettingsViewModel(settings, defaultFakeSender, defaultFakeCloudOcr, context)
+        vm.init()
+        vm.openAgeDialog()
+
+        vm.submitBirthYear(Year.now().value + 5)
+        mainDispatcherRule.awaitUntil { true }
+
+        assertThat(vm.uiState.value.showAgeDialog).isTrue()
+        assertThat(settings.ageCheck.first()).isEqualTo(AgeCheck.UNKNOWN)
+    }
+
+    @Test
+    fun dismissAgeDialog_leavesAgeUnknown() = runTest {
+        val vm = SettingsViewModel(settings, defaultFakeSender, defaultFakeCloudOcr, context)
+        vm.init()
+        vm.openAgeDialog()
+
+        vm.dismissAgeDialog()
+        mainDispatcherRule.awaitUntil { true }
+
+        assertThat(vm.uiState.value.showAgeDialog).isFalse()
+        assertThat(settings.ageCheck.first()).isEqualTo(AgeCheck.UNKNOWN)
     }
 }
