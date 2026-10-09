@@ -6,9 +6,12 @@ import androidx.lifecycle.viewModelScope
 import com.scan2anki.R
 import com.scan2anki.ankidroid.AnkiDroidSender
 import com.scan2anki.ocr.CloudVisionOcrEngine
+import com.scan2anki.settings.AgeCheck
+import com.scan2anki.settings.AgeRule
 import com.scan2anki.settings.AppSettings
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.time.Year
 import javax.inject.Inject
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
@@ -48,6 +51,8 @@ data class SettingsUiState(
     val noteTypeNames: List<String> = emptyList(),
     val isLoadingNoteTypeNames: Boolean = false,
     val showNoteTypePicker: Boolean = false,
+    val ageCheck: AgeCheck = AgeCheck.UNKNOWN,
+    val showAgeDialog: Boolean = false,
 )
 
 @HiltViewModel
@@ -82,6 +87,11 @@ class SettingsViewModel @Inject constructor(
                 }
             }
         }
+        viewModelScope.launch {
+            settings.ageCheck.collect { ageCheck ->
+                _uiState.update { it.copy(ageCheck = ageCheck) }
+            }
+        }
     }
 
     fun setApiKey(value: String) {
@@ -106,6 +116,27 @@ class SettingsViewModel @Inject constructor(
         Timber.d("SettingsViewModel.setOcrScript to \"%s\"", value)
         _uiState.update { it.copy(ocrScript = value) }
         viewModelScope.launch { settings.setOcrScript(value) }
+    }
+
+    fun openAgeDialog() {
+        Timber.d("SettingsViewModel: opening age dialog")
+        _uiState.update { it.copy(showAgeDialog = true) }
+    }
+
+    fun dismissAgeDialog() {
+        Timber.d("SettingsViewModel: age dialog dismissed")
+        _uiState.update { it.copy(showAgeDialog = false) }
+    }
+
+    fun submitBirthYear(year: Int) {
+        val result = AgeRule.evaluate(year, Year.now().value)
+        if (result == null) {
+            Timber.w("SettingsViewModel: ignoring invalid birth year")
+            return
+        }
+        Timber.i("SettingsViewModel: age check result %s", result)
+        _uiState.update { it.copy(ageCheck = result, showAgeDialog = false) }
+        viewModelScope.launch { settings.setAgeCheck(result) }
     }
 
     fun testAnkiDroid() {
