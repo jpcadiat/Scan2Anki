@@ -27,6 +27,7 @@ import com.scan2anki.ocr.OcrResult
 import com.scan2anki.ocr.OcrSource
 import com.scan2anki.parse.ColumnParser
 import com.scan2anki.parse.OcrCleanup
+import com.scan2anki.settings.AgeCheck
 import com.scan2anki.settings.AppSettings
 import com.scan2anki.vm.ReviewViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -88,9 +89,12 @@ class ReviewScreenTest {
                 produceFile = { File(context.filesDir, "review_screen_test.preferences_pb") },
             ),
         )
-        // Cloud OCR is gated on a stored API key; most existing tests here exercise the
-        // "key configured" case, so seed one by default and override per-test where needed.
-        runBlocking { settings.setApiKey("test-key") }
+        // Cloud OCR needs a stored API key and a passed age check; most existing tests here
+        // exercise the "cloud available" case, so seed both by default and override per-test.
+        runBlocking {
+            settings.setApiKey("test-key")
+            settings.setAgeCheck(AgeCheck.ADULT_OR_TEEN)
+        }
     }
 
     @Test

@@ -90,8 +90,8 @@ class ReviewViewModel @Inject constructor(
             }
         }
         viewModelScope.launch {
-            settings.apiKey.collect { key ->
-                Timber.v("ReviewViewModel: cloud OCR availability changed, key configured=%b", key.isNotBlank())
+            settings.cloudOcrApiKey.collect { key ->
+                Timber.v("ReviewViewModel: cloud OCR availability changed, available=%b", key.isNotBlank())
                 _uiState.update { it.copy(cloudOcrAvailable = key.isNotBlank()) }
             }
         }
