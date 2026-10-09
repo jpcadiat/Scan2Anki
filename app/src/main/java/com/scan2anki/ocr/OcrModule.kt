@@ -34,7 +34,7 @@ object OcrModule {
     @Singleton
     fun provideCloudVisionOcrEngine(client: OkHttpClient, settings: AppSettings): CloudVisionOcrEngine {
         Timber.d("Providing CloudVisionOcrEngine")
-        return CloudVisionOcrEngine(client) { settings.apiKey.first() }
+        return CloudVisionOcrEngine(client) { settings.cloudOcrApiKey.first() }
     }
 
     @Provides

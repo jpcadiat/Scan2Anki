@@ -20,6 +20,7 @@ import com.scan2anki.ocr.OcrSource
 import com.scan2anki.R
 import com.scan2anki.parse.ColumnParser
 import com.scan2anki.parse.OcrCleanup
+import com.scan2anki.settings.AgeCheck
 import com.scan2anki.settings.AppSettings
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.first
@@ -412,8 +413,9 @@ class ReviewViewModelTest {
     }
 
     @Test
-    fun init_cloudOcrAvailable_trueWhenApiKeyConfigured() = runTest {
+    fun init_cloudOcrAvailable_trueWhenApiKeyConfiguredAndAgeCheckPassed() = runTest {
         settings.setApiKey("test-key")
+        settings.setAgeCheck(AgeCheck.ADULT_OR_TEEN)
         val sessionId = repo.createSession()
         val vm = ReviewViewModel(repo, fakeOnDevice, FakeSender(), settings, context)
         vm.init(sessionId)
@@ -421,6 +423,29 @@ class ReviewViewModelTest {
         mainDispatcherRule.awaitUntil { vm.uiState.value.cloudOcrAvailable }
 
         assertThat(vm.uiState.value.cloudOcrAvailable).isTrue()
+    }
+
+    @Test
+    fun init_cloudOcrAvailable_falseWhenKeyButAgeUnknown() = runTest {
+        settings.setApiKey("test-key")
+        val sessionId = repo.createSession()
+        val vm = ReviewViewModel(repo, fakeOnDevice, FakeSender(), settings, context)
+        vm.init(sessionId)
+        mainDispatcherRule.awaitUntil { vm.uiState.value.sessionId == sessionId }
+
+        assertThat(vm.uiState.value.cloudOcrAvailable).isFalse()
+    }
+
+    @Test
+    fun init_cloudOcrAvailable_falseWhenKeyButUnder13() = runTest {
+        settings.setApiKey("test-key")
+        settings.setAgeCheck(AgeCheck.UNDER_13)
+        val sessionId = repo.createSession()
+        val vm = ReviewViewModel(repo, fakeOnDevice, FakeSender(), settings, context)
+        vm.init(sessionId)
+        mainDispatcherRule.awaitUntil { vm.uiState.value.sessionId == sessionId }
+
+        assertThat(vm.uiState.value.cloudOcrAvailable).isFalse()
     }
 
     @Test
