@@ -17,13 +17,31 @@ android {
         applicationId = "com.scan2anki"
         minSdk = 26
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        // CI passes -PversionCode/-PversionName derived from the release tag.
+        versionCode = (findProperty("versionCode") as String?)?.toInt() ?: 1
+        versionName = findProperty("versionName") as String? ?: "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    // Release signing is only configured when the keystore is provided through the
+    // environment (as the GitHub release workflow does); otherwise release builds are unsigned.
+    val releaseKeystore = System.getenv("SCAN2ANKI_KEYSTORE_FILE")?.let(::file)?.takeIf { it.exists() }
+    signingConfigs {
+        if (releaseKeystore != null) {
+            create("release") {
+                storeFile = releaseKeystore
+                storePassword = System.getenv("SCAN2ANKI_KEYSTORE_PASSWORD")
+                keyAlias = System.getenv("SCAN2ANKI_KEY_ALIAS")
+                keyPassword = System.getenv("SCAN2ANKI_KEY_PASSWORD")
+            }
+        }
     }
 
     buildTypes {
         release {
+            if (releaseKeystore != null) {
+                signingConfig = signingConfigs.getByName("release")
+            }
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }

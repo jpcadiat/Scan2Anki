@@ -60,6 +60,18 @@ the word pairs to an AnkiDroid deck in one tap.
 
 ## Getting started
 
+### Download
+
+Signed APKs are published on the
+[Releases page](https://github.com/jpcadiat/Scan2Anki/releases). Download the
+latest `scan2anki-<version>.apk` on your phone and open it. Android asks you to
+allow installs from your browser or file manager the first time.
+
+Every push to `main` is also built by GitHub Actions. The resulting debug APK can
+be downloaded from that run's page in the
+[Actions tab](https://github.com/jpcadiat/Scan2Anki/actions). It is signed with
+a temporary key, so it cannot update a release install, or the reverse.
+
 ### Build from source
 
 You need a JDK (17 or newer) to start Gradle, and the Android SDK (platform 36).
@@ -157,6 +169,25 @@ Unit and UI tests run on the JVM with Robolectric, so no device is needed:
 ```bash
 ./gradlew testDebugUnitTest
 ```
+
+## Releases (maintainers)
+
+Pushing a tag such as `v1.2.0` runs `.github/workflows/release.yml`. It runs the
+tests, builds a release APK signed with the project key, and publishes it as a
+GitHub Release with generated notes. The version name comes from the tag, and
+the version code is `major × 10000 + minor × 100 + patch`.
+
+```bash
+git tag v1.2.0
+git push origin v1.2.0
+```
+
+The workflow reads the keystore from these repository secrets:
+`SCAN2ANKI_KEYSTORE_BASE64`, `SCAN2ANKI_KEYSTORE_PASSWORD`,
+`SCAN2ANKI_KEY_ALIAS` and `SCAN2ANKI_KEY_PASSWORD`. To build a signed release
+locally, set `SCAN2ANKI_KEYSTORE_FILE` (the path to the keystore) and the last
+three as environment variables. Without them, `assembleRelease` produces an
+unsigned APK.
 
 ## Contributing
 

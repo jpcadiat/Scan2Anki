@@ -63,6 +63,20 @@ paires de mots dans un paquet AnkiDroid en un seul geste.
 
 ## Prise en main
 
+### Téléchargement
+
+Les APK signés sont publiés sur la
+[page des versions](https://github.com/jpcadiat/Scan2Anki/releases).
+Téléchargez le dernier `scan2anki-<version>.apk` sur votre téléphone et
+ouvrez-le. La première fois, Android vous demande d’autoriser les installations
+depuis votre navigateur ou votre gestionnaire de fichiers.
+
+Chaque push sur `main` est aussi compilé par GitHub Actions. L’APK de débogage
+obtenu se télécharge depuis la page de l’exécution, dans
+l’[onglet Actions](https://github.com/jpcadiat/Scan2Anki/actions). Il est signé
+avec une clé temporaire : il ne peut donc pas mettre à jour une version
+installée depuis la page des versions, ni l’inverse.
+
 ### Compiler depuis les sources
 
 Il faut un JDK (17 ou plus récent) pour lancer Gradle, ainsi que le SDK Android
@@ -176,6 +190,26 @@ sans appareil :
 ```bash
 ./gradlew testDebugUnitTest
 ```
+
+## Publication des versions (mainteneurs)
+
+Pousser une étiquette comme `v1.2.0` lance `.github/workflows/release.yml`. Le
+workflow exécute les tests, compile un APK de production signé avec la clé du
+projet et le publie dans une GitHub Release avec des notes générées. Le nom de
+version vient de l’étiquette, et le code de version vaut
+`majeure × 10000 + mineure × 100 + correctif`.
+
+```bash
+git tag v1.2.0
+git push origin v1.2.0
+```
+
+Le workflow lit le keystore dans ces secrets du dépôt :
+`SCAN2ANKI_KEYSTORE_BASE64`, `SCAN2ANKI_KEYSTORE_PASSWORD`,
+`SCAN2ANKI_KEY_ALIAS` et `SCAN2ANKI_KEY_PASSWORD`. Pour compiler une version
+signée en local, définissez `SCAN2ANKI_KEYSTORE_FILE` (le chemin du keystore)
+et les trois derniers comme variables d’environnement. Sans eux,
+`assembleRelease` produit un APK non signé.
 
 ## Contribuer
 
