@@ -62,14 +62,21 @@ Play Console → **Policy and programs → App content**:
 - **Ads:** No.
 - **App access:** All functionality is available without special access. In the
   reviewer notes, say that sending cards requires AnkiDroid
-  (`com.ichi2.anki`, free on Play) and that Cloud Vision is optional and needs the
-  user's own API key.
+  (`com.ichi2.anki`, free on Play), that Cloud Vision is optional and needs the
+  user's own API key, and that it sits behind a year-of-birth question: enter a
+  year for someone 13 or over to test it.
 - **Content rating:** answer the questionnaire (category *Reference, News, or
   Educational*; no violence, user interaction, sharing location or purchases).
   The expected result is the lowest rating everywhere (Everyone / PEGI 3 / USK 0).
-- **Target audience:** 13 and over (or 18+). Including under-13s puts the app
-  under the Families policy, which ML Kit's diagnostics would make harder to
-  satisfy.
+- **Target audience:** age groups **9–12, 13–15, 16–17 and 18+**. "Appeals to
+  children": yes. Including under-13s puts the app under the
+  [Families policy](https://support.google.com/googleplay/android-developer/answer/9893335):
+  stricter review, and Console answers must stay consistent with the privacy
+  policy.
+- **Families policy declarations:** no ads. ML Kit runs for every user; it sends
+  no advertising ID or hardware identifiers. Google Cloud Vision is behind a
+  neutral age screen (year of birth, asked only when the user turns it on);
+  under-13s cannot enable it.
 - **News app / COVID-19 / Government / Financial features / Health:** No.
 - **Data safety:** see below.
 
@@ -90,6 +97,9 @@ Re-check if dependencies change.
 | Photos and videos → Photos | Yes | No | Yes, optional | App functionality | Sent to Google Cloud Vision only when the user enables cloud OCR with their own key. Google acts as a service provider, so this is not "sharing". |
 | App info and performance → Diagnostics | Yes | No | No | Analytics | ML Kit performance metrics, API configuration, error codes |
 | Device or other IDs | Yes | No | No | Analytics | ML Kit per-installation identifier |
+
+The Photos upload only happens for users who passed the age check. The age
+result stays on the device and is not "collected".
 
 Everything else (location, contacts, personal info, messages, app activity, web
 history, files, calendar, etc.): **not collected**. Word pairs go to AnkiDroid on
