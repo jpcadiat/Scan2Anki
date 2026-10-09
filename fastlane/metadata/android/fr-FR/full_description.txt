@@ -1,0 +1,30 @@
+Scan2Anki transforme une liste de vocabulaire imprimée sur deux colonnes en cartes AnkiDroid. Photographiez les pages, vérifiez la séparation des colonnes, nettoyez le texte et envoyez les paires de mots vers un paquet AnkiDroid en un geste.
+
+<b>Capture</b>
+• Photographiez plusieurs pages d'affilée avec l'appareil photo (lampe torche comprise), ou importez-les depuis votre galerie.
+• Supprimez une page à tout moment pendant la capture.
+
+<b>Reconnaissance de texte</b>
+• Sur l'appareil avec Google ML Kit : gratuite, hors ligne et utilisée par défaut. Écriture latine ou chinoise.
+• Google Cloud Vision en option pour les pages difficiles, avec votre propre clé d'API.
+
+<b>Éditeur de colonnes</b>
+• Visualisez les lignes détectées sur la photo et déplacez ou ajoutez la séparation entre les deux colonnes.
+• Supprimez les lignes parasites comme les titres et tracez des zones sur le texte à ignorer.
+• Un aperçu en direct montre les paires de mots obtenues.
+
+<b>Relecture et nettoyage</b>
+• Modifiez, ajoutez ou supprimez des paires, inversez recto et verso et relancez l'OCR sur une page.
+• Règles de nettoyage pour les caractères parasites, les numéros de page, les séparateurs et la casse, avec un aperçu de chaque modification avant de l'appliquer.
+
+<b>Envoi vers AnkiDroid</b>
+• Choisissez le paquet et le type de note dans AnkiDroid, ou saisissez leur nom.
+• Le type de note par défaut crée deux cartes par paire : recto → verso et verso → recto.
+• Les paires déjà présentes dans AnkiDroid sont ignorées et signalées.
+
+<b>Respect de la vie privée</b>
+Pas de compte, pas de publicité, aucun pistage par l'application. Les scans n'existent que pour la session en cours.
+
+Nécessite AnkiDroid sur le même appareil. Scan2Anki est un projet open source indépendant, sans lien avec Anki ni AnkiDroid.
+
+Code source : https://github.com/jpcadiat/Scan2Anki

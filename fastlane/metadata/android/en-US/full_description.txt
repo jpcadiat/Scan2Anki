@@ -1,0 +1,30 @@
+Scan2Anki turns a printed two-column vocabulary list into AnkiDroid flashcards. Photograph the pages, check that the columns were split correctly, clean up the text, and send the word pairs to an AnkiDroid deck in one tap.
+
+<b>Capture</b>
+• Photograph several pages in a row with the camera (flashlight included), or import them from your gallery.
+• Delete a page at any time while capturing.
+
+<b>Text recognition</b>
+• On-device with Google ML Kit: free, offline, and the default. Latin or Chinese script.
+• Optional Google Cloud Vision for harder pages, using your own API key.
+
+<b>Column editor</b>
+• See the detected lines over the photo and move or add the split between the two columns.
+• Remove stray lines such as titles, and draw zones over text you want to ignore.
+• A live preview shows the resulting word pairs.
+
+<b>Review and clean-up</b>
+• Edit, add or delete pairs, swap front and back, and re-run OCR on a page.
+• Clean-up rules for junk characters, trailing page numbers, separators and casing, with a preview of every change before it is applied.
+
+<b>Send to AnkiDroid</b>
+• Pick the target deck and note type from AnkiDroid, or type their names.
+• The default note type creates two cards per pair: front → back and back → front.
+• Pairs that already exist in AnkiDroid are skipped and reported.
+
+<b>Private by design</b>
+No account, no ads, no tracking by the app. Scans exist only for the current session.
+
+Requires AnkiDroid installed on the same device. Scan2Anki is an independent open-source project and is not affiliated with Anki or AnkiDroid.
+
+Source code: https://github.com/jpcadiat/Scan2Anki
