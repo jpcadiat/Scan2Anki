@@ -30,9 +30,13 @@ Google: device information (such as model and Android version), the app's
 package name and version, a per-installation identifier that does not identify
 you or your device, performance metrics, and API configuration. Google uses it
 for diagnostics and usage analytics and does not pass it on to third parties.
+This happens for every user, including children. It contains no
+advertising ID, no hardware identifiers (such as IMEI, serial number or
+MAC address), and nothing that identifies you.
 See [Google's ML Kit data disclosure](https://developers.google.com/ml-kit/android-data-disclosure).
 
-**Google Cloud Vision (optional).** If you enter your own Google Cloud Vision API
+**Google Cloud Vision (optional).** Cloud text recognition is only available to
+users who confirm they are 13 or over (see *Children* below). If you enter your own Google Cloud Vision API
 key and choose cloud text recognition, the photo of the page is sent over HTTPS
 directly from your phone to Google's Cloud Vision API, billed to your own Google
 Cloud project. That processing is governed by Google's terms and privacy policy
@@ -48,14 +52,21 @@ your phone.
 
 ## Settings
 
-Your settings (default deck, note type, clean-up rules, OCR script, and API key)
+Your settings (default deck, note type, clean-up rules, OCR script, API key, and the result of the age question)
 are stored only on your device. Uninstalling the app or clearing its data
 deletes them.
 
 ## Children
 
-Scan2Anki is not directed at children under 13 and does not knowingly collect
-personal information from anyone.
+Scan2Anki can be used by children, including children under 13.
+
+When someone tries to turn on Google Cloud Vision, the app asks for their
+year of birth. It keeps only the result ("13 or over" or "under 13"), on
+the device; the year itself is not stored. Users under 13 cannot turn on
+Cloud Vision, so their photos never leave the phone. The only data sent
+off the device for them is ML Kit's diagnostic data described above.
+
+The developer receives no data from any user.
 
 ## Changes
 

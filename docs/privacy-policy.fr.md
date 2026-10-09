@@ -35,9 +35,14 @@ version d'Android…), nom de paquet et version de l'application, un identifiant
 propre à l'installation qui ne vous identifie pas, ni votre appareil, des
 mesures de performance et la configuration de l'API. Google les utilise pour le
 diagnostic et les statistiques d'utilisation et ne les transmet pas à des tiers.
+Cela concerne tous les utilisateurs, y compris les enfants. Ces données ne
+contiennent aucun identifiant publicitaire, aucun identifiant matériel (IMEI,
+numéro de série, adresse MAC…) ni rien qui permette de vous identifier.
 Voir la [déclaration de Google sur les données de ML Kit](https://developers.google.com/ml-kit/android-data-disclosure).
 
-**Google Cloud Vision (facultatif).** Si vous saisissez votre propre clé d'API
+**Google Cloud Vision (facultatif).** La reconnaissance dans le cloud n'est
+disponible que pour les utilisateurs qui confirment avoir 13 ans ou plus (voir
+*Enfants* ci-dessous). Si vous saisissez votre propre clé d'API
 Google Cloud Vision et choisissez la reconnaissance dans le cloud, la photo de
 la page est envoyée en HTTPS directement depuis votre téléphone à l'API Cloud
 Vision de Google, facturée sur votre propre projet Google Cloud. Ce traitement
@@ -55,13 +60,22 @@ Cet échange se fait entièrement sur votre téléphone.
 ## Réglages
 
 Vos réglages (paquet par défaut, type de note, règles de nettoyage, écriture
-OCR et clé d'API) sont stockés uniquement sur votre appareil. Ils sont supprimés
+OCR, clé d'API et résultat de la question sur l'âge) sont stockés uniquement sur votre appareil. Ils sont supprimés
 si vous désinstallez l'application ou effacez ses données.
 
 ## Enfants
 
-Scan2Anki ne s'adresse pas aux enfants de moins de 13 ans et ne collecte
-sciemment aucune donnée personnelle de qui que ce soit.
+Scan2Anki peut être utilisé par des enfants, y compris de moins de 13 ans.
+
+Lorsqu'une personne essaie d'activer Google Cloud Vision, l'application
+demande son année de naissance. Elle ne conserve que le résultat (« 13 ans
+ou plus » ou « moins de 13 ans »), sur l'appareil ; l'année elle-même n'est
+pas enregistrée. Les utilisateurs de moins de 13 ans ne peuvent pas activer
+Cloud Vision : leurs photos ne quittent donc jamais le téléphone. Les seules
+données envoyées hors de l'appareil les concernant sont les données de
+diagnostic de ML Kit décrites plus haut.
+
+Le développeur ne reçoit aucune donnée d'aucun utilisateur.
 
 ## Modifications
 
