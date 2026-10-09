@@ -91,6 +91,11 @@
     <string name="error_no_api_key_configured">No API key configured.</string>
     <string name="cd_api_key_valid">API key valid</string>
     <string name="cd_api_key_invalid">API key invalid</string>
+    <string name="action_use_cloud_vision">Use Google Cloud Vision…</string>
+    <string name="age_dialog_title">What year were you born?</string>
+    <string name="label_birth_year">Year of birth</string>
+    <string name="action_continue">Continue</string>
+    <string name="msg_cloud_vision_unavailable">Cloud Vision is not available. Scan2Anki works fully with on-device text recognition.</string>
     <string name="section_ankidroid">AnkiDroid</string>
     <string name="label_default_deck_name">Default deck name</string>
     <string name="default_note_type_name">General</string>

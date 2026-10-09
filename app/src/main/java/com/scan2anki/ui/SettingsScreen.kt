@@ -53,6 +53,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.scan2anki.R
+import com.scan2anki.settings.AgeCheck
 import com.scan2anki.vm.SettingsViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -122,87 +123,121 @@ fun SettingsScreen(
                 }
             }
 
-            OutlinedTextField(
-                value = state.apiKey,
-                onValueChange = viewModel::setApiKey,
-                label = { Text(stringResource(R.string.label_vision_api_key)) },
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                visualTransformation = if (apiKeyVisible) {
-                    VisualTransformation.None
-                } else {
-                    PasswordVisualTransformation()
-                },
-                trailingIcon = {
-                    IconButton(onClick = { apiKeyVisible = !apiKeyVisible }) {
-                        Icon(
-                            imageVector = if (apiKeyVisible) {
-                                Icons.Filled.VisibilityOff
-                            } else {
-                                Icons.Filled.Visibility
-                            },
-                            contentDescription = stringResource(
-                                if (apiKeyVisible) R.string.cd_hide_api_key else R.string.cd_show_api_key,
-                            ),
-                        )
-                    }
-                },
-                supportingText = {
-                    Text(stringResource(R.string.supporting_ocr_explainer))
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 12.dp),
-            )
-
-            OutlinedButton(
-                onClick = viewModel::testApiKey,
-                enabled = !state.isTestingApiKey,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 12.dp),
-            ) {
-                if (state.isTestingApiKey) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.size(16.dp),
-                        strokeWidth = 2.dp,
+            when (state.ageCheck) {
+                AgeCheck.ADULT_OR_TEEN -> {
+                    OutlinedTextField(
+                        value = state.apiKey,
+                        onValueChange = viewModel::setApiKey,
+                        label = { Text(stringResource(R.string.label_vision_api_key)) },
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                        visualTransformation = if (apiKeyVisible) {
+                            VisualTransformation.None
+                        } else {
+                            PasswordVisualTransformation()
+                        },
+                        trailingIcon = {
+                            IconButton(onClick = { apiKeyVisible = !apiKeyVisible }) {
+                                Icon(
+                                    imageVector = if (apiKeyVisible) {
+                                        Icons.Filled.VisibilityOff
+                                    } else {
+                                        Icons.Filled.Visibility
+                                    },
+                                    contentDescription = stringResource(
+                                        if (apiKeyVisible) R.string.cd_hide_api_key else R.string.cd_show_api_key,
+                                    ),
+                                )
+                            }
+                        },
+                        supportingText = {
+                            Text(stringResource(R.string.supporting_ocr_explainer))
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 12.dp),
                     )
-                    Spacer(Modifier.width(8.dp))
-                    Text(stringResource(R.string.action_checking))
-                } else {
-                    Text(stringResource(R.string.action_check_api_key))
+
+                    OutlinedButton(
+                        onClick = viewModel::testApiKey,
+                        enabled = !state.isTestingApiKey,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 12.dp),
+                    ) {
+                        if (state.isTestingApiKey) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(16.dp),
+                                strokeWidth = 2.dp,
+                            )
+                            Spacer(Modifier.width(8.dp))
+                            Text(stringResource(R.string.action_checking))
+                        } else {
+                            Text(stringResource(R.string.action_check_api_key))
+                        }
+                    }
+
+                    state.apiKeyTestResult?.let { result ->
+                        val tint = if (result.ok) {
+                            MaterialTheme.colorScheme.primary
+                        } else {
+                            MaterialTheme.colorScheme.error
+                        }
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 8.dp),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Icon(
+                                imageVector = if (result.ok) Icons.Filled.CheckCircle else Icons.Filled.Error,
+                                contentDescription = stringResource(
+                                    if (result.ok) R.string.cd_api_key_valid else R.string.cd_api_key_invalid,
+                                ),
+                                tint = tint,
+                                modifier = Modifier.size(20.dp),
+                            )
+                            SelectionContainer {
+                                Text(
+                                    text = result.message,
+                                    color = tint,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                )
+                            }
+                        }
+                    }
+                }
+                AgeCheck.UNKNOWN -> {
+                    OutlinedButton(
+                        onClick = viewModel::openAgeDialog,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 12.dp),
+                    ) {
+                        Text(stringResource(R.string.action_use_cloud_vision))
+                    }
+                    Text(
+                        text = stringResource(R.string.supporting_ocr_explainer),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(top = 4.dp),
+                    )
+                }
+                AgeCheck.UNDER_13 -> {
+                    Text(
+                        text = stringResource(R.string.msg_cloud_vision_unavailable),
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(top = 12.dp),
+                    )
                 }
             }
 
-            state.apiKeyTestResult?.let { result ->
-                val tint = if (result.ok) {
-                    MaterialTheme.colorScheme.primary
-                } else {
-                    MaterialTheme.colorScheme.error
-                }
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Icon(
-                        imageVector = if (result.ok) Icons.Filled.CheckCircle else Icons.Filled.Error,
-                        contentDescription = stringResource(
-                            if (result.ok) R.string.cd_api_key_valid else R.string.cd_api_key_invalid,
-                        ),
-                        tint = tint,
-                        modifier = Modifier.size(20.dp),
-                    )
-                    SelectionContainer {
-                        Text(
-                            text = result.message,
-                            color = tint,
-                            style = MaterialTheme.typography.bodyMedium,
-                        )
-                    }
-                }
+            if (state.showAgeDialog) {
+                AgeCheckDialog(
+                    onSubmit = viewModel::submitBirthYear,
+                    onDismiss = viewModel::dismissAgeDialog,
+                )
             }
 
             SectionHeader(stringResource(R.string.section_ankidroid))
