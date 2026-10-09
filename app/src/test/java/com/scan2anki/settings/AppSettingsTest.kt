@@ -3,7 +3,9 @@ package com.scan2anki.settings
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
+import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
@@ -75,5 +77,30 @@ class AppSettingsTest {
         )
         settings.setCleanupConfig(config)
         assertThat(settings.cleanupConfig.first()).isEqualTo(config)
+    }
+
+    @Test
+    fun ageCheck_defaultsToUnknownAndPersists() = runTest {
+        assertThat(settings.ageCheck.first()).isEqualTo(AgeCheck.UNKNOWN)
+        settings.setAgeCheck(AgeCheck.UNDER_13)
+        assertThat(settings.ageCheck.first()).isEqualTo(AgeCheck.UNDER_13)
+        settings.setAgeCheck(AgeCheck.ADULT_OR_TEEN)
+        assertThat(settings.ageCheck.first()).isEqualTo(AgeCheck.ADULT_OR_TEEN)
+    }
+
+    @Test
+    fun ageCheck_unrecognisedStoredValue_isUnknown() = runTest {
+        dataStore.edit { it[stringPreferencesKey("age_check")] = "SOMETHING_ELSE" }
+        assertThat(settings.ageCheck.first()).isEqualTo(AgeCheck.UNKNOWN)
+    }
+
+    @Test
+    fun cloudOcrApiKey_isBlankUnlessAdultOrTeen() = runTest {
+        settings.setApiKey("abc")
+        assertThat(settings.cloudOcrApiKey.first()).isEmpty()
+        settings.setAgeCheck(AgeCheck.UNDER_13)
+        assertThat(settings.cloudOcrApiKey.first()).isEmpty()
+        settings.setAgeCheck(AgeCheck.ADULT_OR_TEEN)
+        assertThat(settings.cloudOcrApiKey.first()).isEqualTo("abc")
     }
 }
