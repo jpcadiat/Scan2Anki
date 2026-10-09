@@ -231,6 +231,7 @@ fun SettingsScreen(
                         modifier = Modifier.padding(top = 12.dp),
                     )
                 }
+                null -> Unit
             }
 
             if (state.showAgeDialog) {
